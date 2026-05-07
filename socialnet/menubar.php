@@ -62,7 +62,7 @@
     <div class="logo">Simple Social Network</div>
 
     <ul class="nav-links">
-        <li><a href="homepage.php">Home</a></li>
+        <li><a href="index.php">Home</a></li>
         <li><a href="setting.php">Setting</a></li>
         <li><a href="profile.php">Profile</a></li>
         <li><a href="about.php">About</a></li>
