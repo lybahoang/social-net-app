@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <html>
 <head>
-    <title>Register</title>
+    <title>Register - Admin Page</title>
 </head>
 <body>
 	<h2>Create Account</h2>
