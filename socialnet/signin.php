@@ -3,6 +3,42 @@ session_start();
 require_once("../db.php");
 ?>
 
+<?php
+    $message = "";
+    if ($_SERVER['REQUEST_METHOD'] == 'POST')
+    {
+        // Get the username and password from the input form.
+        $u_username = $_POST['username'];
+        $u_password = $_POST['password'];
+
+        // Query the database to get the user account.
+        $result = db_query("SELECT username, password FROM account WHERE username = '" . $u_username . "'");
+        if ($result->num_rows > 0)
+        {
+            $row = $result->fetch_assoc();
+            $password_checking = password_verify($u_password, $row['password']);
+            if ($password_checking)
+            {   
+                // Store the username in a session.
+                $_SESSION['username'] = $u_username;
+
+                // REDIRECT to index.php
+                header("Location: index.php");
+                exit();
+            }
+            else
+            {
+                $message = "Login unsuccessfully. Invalid username or password";
+            }
+        }
+        else
+        {
+            $message = "Login unsuccessfully. Invalid username or password";
+        }
+    }
+?>
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -72,40 +108,6 @@ require_once("../db.php");
     </style>
 </head>
 <body>
-    <?php
-        $message = "";
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
-            // Get the username and password from the input form.
-            $u_username = $_POST['username'];
-            $u_password = $_POST['password'];
-
-            // Query the database to get the user account.
-            $result = db_query("SELECT username, password FROM account WHERE username = '" . $u_username . "'");
-            if ($result->num_rows > 0)
-            {
-                $row = $result->fetch_assoc();
-                $password_checking = password_verify($u_password, $row['password']);
-                if ($password_checking)
-                {   
-                    // Store the username in a session.
-                    $_SESSION['username'] = $u_username;
-
-                    // REDIRECT to index.php
-                    header("Location: index.php");
-                    exit();
-                }
-                else
-                {
-                    $message = "Login unsuccessfully. Invalid username or password";
-                }
-            }
-            else
-            {
-                $message = "Login unsuccessfully. Invalid username or password";
-            }
-        }
-    ?>
 
     <div class="login-container">
         <h2>Sign In</h2>
