@@ -124,7 +124,7 @@ require_once("../db.php");
 
             <!-- Profile Owner -->
             <div class="profile-header">
-                <h1><?= $_SESSION['username'] . "'s Profile"?></h1>
+                <h1><?= $profile_username . "'s Profile"?></h1>
                 <p>Owner of this profile page</p>
             </div>
 

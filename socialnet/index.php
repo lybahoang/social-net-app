@@ -220,7 +220,9 @@ require_once("../db.php");
             </thead>
 
             <tbody>
-                <?php while ($user = $all_users->fetch_assoc()): ?>
+                <?php while ($user = $all_users->fetch_assoc()) {
+                    if ($user['username'] != $_SESSION['username']) {
+                ?>
                 <tr>
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
@@ -230,7 +232,7 @@ require_once("../db.php");
                         </a>
                     </td>
                 </tr>
-                <?php endwhile; ?>
+                <?php }} ?>
 
             </tbody>
 
