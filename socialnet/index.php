@@ -7,7 +7,7 @@ require_once("../db.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Professional Homepage</title>
+    <title>Social Network</title>
     <style>
         /* Basic Reset */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,7 +26,8 @@ require_once("../db.php");
     </style>
 </head>
 <body>
-
+    
+    <!-- Check if the user sign in and take their fullname -->
     <?php
     $fullname = "";
     if (!isset($_SESSION['username']))
@@ -47,13 +48,13 @@ require_once("../db.php");
     }
     ?>
 
+    <!-- Display the menu bar -->
     <?php
         include_once("menubar.php");
     ?>
 
     <header id="home" class="hero">
         <h1>Welcome <?= $fullname ?></h1>
-        <!-- <p>Your one-stop solution for professional web services and creative designs.</p> -->
     </header>
 </body>
 </html>
