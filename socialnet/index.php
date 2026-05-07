@@ -55,6 +55,7 @@ require_once("../db.php");
 
     <header id="home" class="hero">
         <h1>Welcome <?= $fullname ?></h1>
+        <p><?= $_SESSION['username'] ?></p>
     </header>
 </body>
 </html>
