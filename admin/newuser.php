@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<input type="text" name="fullname" required><br><br>
 
 		<label>Password:</label>
-		<input type="text" name="password" required><br><br>
+		<input type="password" name="password" required><br><br>
 
 		<label>Description:</label><br>
 		<textarea rows="3" cols="40" name="description"></textarea><br><br>
