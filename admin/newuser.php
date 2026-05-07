@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Add the newly created account into the database.
     $conn = db_conn();
-    $stmt = $conn->prepare("INSERT INTO accounts (username, fullname, password, description) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO account (username, fullname, password, description) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $username, $fullname, $hashedPassword, $description);
 
     // Execute the SQL command.
