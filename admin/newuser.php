@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 	<h2>Create Account</h2>
 
-	<form action="/admin/newuser.php" method="POST">
+	<form action="newuser.php" method="POST">
 		<label>Username:</label>
 		<input type="text" name="username" required><br><br>
 
