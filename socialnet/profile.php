@@ -94,11 +94,12 @@ require_once("../db.php");
         }
         else
         {
-            $result = db_query("SELECT fullname, description FROM accounts WHERE username = '" . $_SESSION['username'] . "'");
-            if (count($result) > 0)
+            $result = db_query("SELECT fullname, description FROM account WHERE username = '" . $_SESSION['username'] . "'");
+            if ($result->num_rows > 0)
             {
-                $fullname = $result[0]['fullname'];
-                $description = $result[0]['description'];
+                $row = $result->fetch_assoc();
+                $fullname = $row['fullname'];
+                $description = $row['description'];
             }
         }
     ?>
