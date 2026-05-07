@@ -129,6 +129,8 @@ require_once("../db.php");
 
             <!-- Profile Description -->
             <div class="profile-content">
+                <h2>Description</h2>
+
                 <div class="description-box">
                     <p> <?= $description ?> </p>
                 </div>
