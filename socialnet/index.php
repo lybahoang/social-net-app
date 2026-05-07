@@ -3,30 +3,6 @@ session_start();
 require_once("../db.php");
 ?>
 
-<!-- Check if the user sign in and take their fullname -->
-<?php
-$fullname = "";
-if (!isset($_SESSION['username']))
-{
-    // Do not sign it yet, redirect to signin.php
-    header("Location: signin.php");
-    exit();
-}
-else
-{
-    // Take the user full name in the database.
-    $result = db_query("SELECT fullname FROM account WHERE username = '" . $_SESSION['username'] . "'");
-    if ($result->num_rows > 0)
-    {
-        $row = $result->fetch_assoc();
-        $fullname = $row['fullname'];
-    }
-
-    // Take the list of users in the system.
-    $all_users = db_query("SELECT username, fullname FROM account");
-}
-?>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -194,6 +170,30 @@ else
     </style>
 </head>
 <body>
+
+    <!-- Check if the user sign in and take their fullname -->
+    <?php
+    $fullname = "";
+    if (!isset($_SESSION['username']))
+    {
+        // Do not sign it yet, redirect to signin.php
+        header("Location: signin.php");
+        exit();
+    }
+    else
+    {
+        // Take the user full name in the database.
+        $result = db_query("SELECT fullname FROM account WHERE username = '" . $_SESSION['username'] . "'");
+        if ($result->num_rows > 0)
+        {
+            $row = $result->fetch_assoc();
+            $fullname = $row['fullname'];
+        }
+
+        // Take the list of users in the system.
+        $all_users = db_query("SELECT username, fullname FROM account");
+    }
+    ?>
 
     <!-- Display the menu bar -->
     <?php
