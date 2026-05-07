@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -105,6 +104,10 @@
 
 <body>
 
+    <!-- Menu bar -->
+    <?php include_once("menubar.php") ?>
+
+    <!-- Student information -->
     <div class="student-container">
 
         <div class="student-header">
