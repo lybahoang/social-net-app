@@ -227,7 +227,7 @@ require_once("../db.php");
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
                     <td>
-                        <a href="profile.php?owner=<?php $user['username']?>" class="view-btn">
+                        <a href="profile.php?owner=<?= $user['username']?>" class="view-btn">
                             View Profile
                         </a>
                     </td>
