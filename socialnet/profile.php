@@ -125,13 +125,10 @@ require_once("../db.php");
             <!-- Profile Owner -->
             <div class="profile-header">
                 <h1><?= $profile_username . "'s Profile"?></h1>
-                <p>Owner of this profile page</p>
             </div>
 
             <!-- Profile Description -->
             <div class="profile-content">
-                <h2>Profile Page Content</h2>
-
                 <div class="description-box">
                     <p> <?= $description ?> </p>
                 </div>
