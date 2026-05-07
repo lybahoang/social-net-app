@@ -82,26 +82,37 @@ require_once("../db.php");
 
 <body>
     
-    <?php
-        // Get the user fullname and description.
-        $fullname = "";
-        $description = "";
+    <?php     
 
-        if (!isset($_SESSION['username']))
-        {
-            header("Location: signin.php");
-            exit();
-        }
-        else
-        {
-            $result = db_query("SELECT fullname, description FROM account WHERE username = '" . $_SESSION['username'] . "'");
-            if ($result->num_rows > 0)
-            {
-                $row = $result->fetch_assoc();
-                $fullname = $row['fullname'];
-                $description = $row['description'];
-            }
-        }
+    // If the user does not signin yet, redirect to sigin page.
+    if (!isset($_SESSION['username']))
+    {
+        header("Location: signin.php");
+        exit();
+    }
+        
+    // If the user does sign in, check for query string.
+    $profile_username = "";
+    if (isset($_GET['owner']))  // If there is a query string.
+    {
+        $profile_username = $_GET['owner'];
+    }
+    else
+    {
+        $profile_username = $_SESSION['username'];
+    }
+
+    // Get the profile of the user.
+    $fullname = "";
+    $description = "";
+    $result = db_query("SELECT fullname, description FROM account WHERE username = '" . $profile_username . "'");
+    if ($result->num_rows > 0)
+    {
+        $row = $result->fetch_assoc();
+        $fullname = $row['fullname'];
+        $description = $row['description'];
+    }
+        
     ?>
 
     <!-- Menu bar -->
