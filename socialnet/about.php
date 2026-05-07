@@ -6,7 +6,7 @@
 
     <style>
 
-        /* Reset */
+        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
@@ -17,14 +17,48 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f6f9;
             color: #333;
-            padding: 40px 20px;
         }
 
-        /* Container */
+        /* Navigation Bar Styles */
+        nav {
+            background: #333;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        /* Main Container */
         .student-container {
             width: 90%;
-            max-width: 700px;
-            margin: auto;
+            max-width: 750px;
+            margin: 50px auto;
             background-color: white;
             border-radius: 14px;
             padding: 35px;
@@ -38,15 +72,16 @@
         }
 
         .student-header h1 {
-            color: #2c3e50;
+            color: #222;
             margin-bottom: 10px;
+            font-size: 2.2rem;
         }
 
         .student-header p {
             color: #777;
         }
 
-        /* Information Table */
+        /* Student Table */
         .student-table {
             width: 100%;
             border-collapse: collapse;
@@ -65,18 +100,33 @@
         .student-table th {
             width: 35%;
             background-color: #f7f7f7;
-            color: #2c3e50;
+            color: #333;
         }
 
         .student-table td {
-            background-color: #ffffff;
+            background-color: #fff;
         }
 
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 600px) {
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
 
             .student-container {
                 padding: 20px;
+            }
+
+            .student-header h1 {
+                font-size: 1.7rem;
             }
 
             .student-table,
