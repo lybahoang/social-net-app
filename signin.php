@@ -42,7 +42,7 @@ require_once("db.php");
             $u_password = $_POST['password'];
 
             // Query the database to get the user account.
-            $result = db_query("SELECT username, password FROM accounts WHERE username = '" . $u_username . "'");
+            $result = db_query("SELECT username, password FROM account WHERE username = '" . $u_username . "'");
             if ($result->num_rows > 0)
             {
                 $row = $result->fetch_assoc();
