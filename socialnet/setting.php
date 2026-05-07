@@ -106,7 +106,7 @@ require_once("../db.php");
         <div class="form-container">
             <form action="setting.php" method="POST">
                 <h3>Enter description</h3>
-                <textarea name="description" required><?= $$current_description ?></textarea>
+                <textarea name="description" required><?= $current_description ?></textarea>
                 <button type="submit" class="save-btn">Save</button>
             </form>
         </div>
