@@ -38,7 +38,7 @@ require_once("../db.php");
     else
     {
         // Take the user full name in the database.
-        $result = db_query("SELECT fullname from accounts WHERE username = '" . $_SESSION['username'] . "'");
+        $result = db_query("SELECT fullname from account WHERE username = '" . $_SESSION['username'] . "'");
         if ($result->num_rows > 0)
         {
             $row = $result->fetch_assoc();
