@@ -3,6 +3,42 @@ session_start();
 require_once("../db.php");
 ?>
 
+<?php     
+
+    // If the user does not signin yet, redirect to sigin page.
+    if (!isset($_SESSION['username']))
+    {
+        header("Location: signin.php");
+        exit();
+    }
+        
+    // If the user does sign in, check for query string.
+    $profile_username = "";
+    if (isset($_GET['owner']))  // If there is a query string.
+    {
+        $profile_username = $_GET['owner'];
+    }
+    else
+    {
+        $profile_username = $_SESSION['username'];
+    }
+
+    // Get the profile of the user.
+    $fullname = "";
+    $description = "";
+    $result = db_query("SELECT fullname, description FROM account WHERE username = '" . $profile_username . "'");
+    if ($result->num_rows > 0)
+    {
+        $row = $result->fetch_assoc();
+        $fullname = $row['fullname'];
+        $description = $row['description'];
+    }
+    
+?>
+
+<!-- Menu bar -->
+<?php include_once("menubar.php") ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -81,42 +117,6 @@ require_once("../db.php");
 </head>
 
 <body>
-    
-    <?php     
-
-    // If the user does not signin yet, redirect to sigin page.
-    if (!isset($_SESSION['username']))
-    {
-        header("Location: signin.php");
-        exit();
-    }
-        
-    // If the user does sign in, check for query string.
-    $profile_username = "";
-    if (isset($_GET['owner']))  // If there is a query string.
-    {
-        $profile_username = $_GET['owner'];
-    }
-    else
-    {
-        $profile_username = $_SESSION['username'];
-    }
-
-    // Get the profile of the user.
-    $fullname = "";
-    $description = "";
-    $result = db_query("SELECT fullname, description FROM account WHERE username = '" . $profile_username . "'");
-    if ($result->num_rows > 0)
-    {
-        $row = $result->fetch_assoc();
-        $fullname = $row['fullname'];
-        $description = $row['description'];
-    }
-        
-    ?>
-
-    <!-- Menu bar -->
-    <?php include_once("menubar.php") ?>
 
     <!-- Main Content -->
     <div class="container">
