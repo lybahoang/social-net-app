@@ -9,7 +9,15 @@ require_once("db.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f9; }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; margin: 0;
+            background-color: #f4f4f9;
+        }
+
         .login-container { 
             background: white; 
             padding: 2rem; 
@@ -18,12 +26,43 @@ require_once("db.php");
             width: 100%; 
             max-width: 350px; }
 
-        h2 { text-align: center; color: #333; }
-        .form-group { margin-bottom: 1rem; }
-        label { display: block; margin-bottom: .5rem; color: #666; }
-        input { width: 100%; padding: .75rem; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: .75rem; background-color: #007bff; border: none; border-radius: 4px; color: white; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: .5rem;
+            color: #666;
+        }
+
+        input {
+            width: 100%;
+            padding: .75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px; box-sizing:
+            border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: .75rem;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        
         .msg {
             margin-top: 15px;
             text-align: center;
