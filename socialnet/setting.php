@@ -7,7 +7,7 @@ require_once("../db.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Social Network | Setting</title>
+    <title>Setting - Social Network</title>
     <style>
         /* Reset and Base Styles */
         * { margin: 0; padding: 0; box-sizing: border-box; }
