@@ -91,8 +91,8 @@ require_once("../db.php");
                     // Store the username in a session.
                     $_SESSION['username'] = $u_username;
 
-                    // REDIRECT to homepage.php
-                    header("Location: homepage.php");
+                    // REDIRECT to index.php
+                    header("Location: index.php");
                     exit();
                 }
                 else
