@@ -53,7 +53,7 @@ require_once("../db.php");
 
     <header id="home" class="hero">
         <h1>Welcome <?= $fullname ?></h1>
-        <p>Your one-stop solution for professional web services and creative designs.</p>
+        <!-- <p>Your one-stop solution for professional web services and creative designs.</p> -->
     </header>
 </body>
 </html>
