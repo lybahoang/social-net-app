@@ -3,6 +3,37 @@ session_start();
 require_once("../db.php");
 ?>
 
+<?php
+    $current_description = "";
+    if (!isset($_SESSION['username']))
+    {   
+        // If the user does not sign in yet, redirect to signin page.
+        header("Location: signin.php");
+        exit();
+    }
+    else
+    {
+        // Update the description column in the database.
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $new_description = $_POST['description'];
+            db_execute("UPDATE account SET description = '" . $new_description . "' WHERE username = '". $_SESSION['username'] . "'");
+        }
+
+        // Take the current desciption to display.
+        $result = db_query("SELECT description FROM account WHERE username = '" . $_SESSION['username'] . "'");
+        if ($result->num_rows > 0)
+        {
+            $row = $result->fetch_assoc();
+            $current_description = $row['description'];
+        }
+    }
+?>
+
+<!-- Display the menu bar -->
+<?php include_once("menubar.php") ?>
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -70,36 +101,6 @@ require_once("../db.php");
     </style>
 </head>
 <body>
-
-    <?php
-        $current_description = "";
-        if (!isset($_SESSION['username']))
-        {   
-            // If the user does not sign in yet, redirect to signin page.
-            header("Location: signin.php");
-            exit();
-        }
-        else
-        {
-            // Update the description column in the database.
-            if ($_SERVER['REQUEST_METHOD'] == 'POST')
-            {
-                $new_description = $_POST['description'];
-                db_execute("UPDATE account SET description = '" . $new_description . "' WHERE username = '". $_SESSION['username'] . "'");
-            }
-
-            // Take the current desciption to display.
-            $result = db_query("SELECT description FROM account WHERE username = '" . $_SESSION['username'] . "'");
-            if ($result->num_rows > 0)
-            {
-                $row = $result->fetch_assoc();
-                $current_description = $row['description'];
-            }
-        }
-    ?>
-    
-    <!-- Display the menu bar -->
-    <?php include_once("menubar.php") ?>
 
     <!-- A form to modify description -->
     <div class="main-content">
