@@ -177,6 +177,11 @@
                 <td>1695172</td>
             </tr>
 
+            <tr>
+                <th>Class</th>
+                <td>CS451 A</td>
+            </tr>
+
         </table>
 
     </div>
