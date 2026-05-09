@@ -15,12 +15,28 @@ if (!isset($_SESSION['username']))
 else
 {
     // Take the user full name in the database.
-    $result = db_query("SELECT fullname FROM account WHERE username = '" . $_SESSION['username'] . "'");
+    $result = db_query("SELECT fullname, id FROM account WHERE username = '" . $_SESSION['username'] . "'");
     if ($result->num_rows > 0)
     {
         $row = $result->fetch_assoc();
         $fullname = $row['fullname'];
     }
+    // Take a list of strange users.
+    $strange_users = db_query(
+        "SELECT username, fullname
+        FROM account
+        WHERE id != " . $row['id'] . "
+        AND id NOT IN (
+            SELECT account_id_2
+            FROM friendship
+            WHERE account_id_1 = " . $row['id'] . "
+
+            UNION
+
+            SELECT account_id_1
+            FROM friendship
+            WHERE account_id_2 = " . $row['id'] . "
+        )");
 
     // Take the list of users in the system.
     $all_users = db_query("SELECT username, fullname FROM account");
@@ -220,7 +236,7 @@ else
             </thead>
 
             <tbody>
-                <?php while ($user = $all_users->fetch_assoc()) {
+                <?php while ($user = $strange_users->fetch_assoc()) {
                     if ($user['username'] != $_SESSION['username']) {
                 ?>
                 <tr>
@@ -228,7 +244,7 @@ else
                     <td><?= $user['fullname'] ?></td>
                     <td>
                         <a href="profile.php?owner=<?= $user['username']?>" class="view-btn">
-                            View Profile
+                            Add friend
                         </a>
                     </td>
                 </tr>
