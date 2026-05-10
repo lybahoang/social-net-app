@@ -27,50 +27,57 @@ else
             "SELECT username, fullname, id
             FROM account
             WHERE id != " . $current_user_id . "
-            AND id NOT IN (
-                SELECT account_id_2
-                FROM friendship
-                WHERE account_id_1 = " . $current_user_id . "
-    
-                UNION
-    
+            AND id NOT IN (    
                 SELECT account_id_1
                 FROM friendship
                 WHERE account_id_2 = " . $current_user_id . "
             )");
 
-    // Take the list of requesting users in the system.
-    $requesting_users = db_query(
-        "SELECT username, fullname
-        FROM account
-        WHERE id != " . $current_user_id . "
-        AND id IN (
-            SELECT account_id_1
-            FROM friendship
-            WHERE account_id_2 = " . $current_user_id . "
-            AND status = 'pending'
-        )");
-    }
+        // Take the list of requesting users in the system.
+        $requesting_users = db_query(
+            "SELECT username, fullname
+            FROM account
+            WHERE id != " . $current_user_id . "
+            AND id IN (
+                SELECT account_id_1
+                FROM friendship
+                WHERE account_id_2 = " . $current_user_id . "
+                AND status = 'pending'
+            )");
+        }
 
-    // Take the list of friends.
-    $friends = db_query(
-        "SELECT username, fullname
-        FROM account
-        WHERE id != " . $current_user_id . "
-        AND id IN (
-            SELECT account_id_2
-            FROM friendship
-            WHERE account_id_1 = " . $current_user_id . "
-            AND status = 'friend'
+        // Take the list of pending request that the current user sent to other users.
+        $pending_users = db_query(
+            "SELECT username, fullname
+            FROM account
+            WHERE id != " . $current_user_id . "
+            AND id IN (
+                SELECT account_id_2
+                FROM friendship
+                WHERE account_id_1 = " . $current_user_id . "
+                AND status = 'pending'
+            )"
+        );
 
-            UNION
+        // Take the list of friends.
+        $friends = db_query(
+            "SELECT username, fullname
+            FROM account
+            WHERE id != " . $current_user_id . "
+            AND id IN (
+                SELECT account_id_2
+                FROM friendship
+                WHERE account_id_1 = " . $current_user_id . "
+                AND status = 'friend'
 
-            SELECT account_id_1
-            FROM friendship
-            WHERE account_id_2 = " . $current_user_id . "
-            AND status = 'friend'
-        )"
-    );
+                UNION
+
+                SELECT account_id_1
+                FROM friendship
+                WHERE account_id_2 = " . $current_user_id . "
+                AND status = 'friend'
+            )"
+        );
 }
 ?>
 
@@ -252,7 +259,7 @@ else
         <p><?= "username: " . $_SESSION['username'] ?></p>
     </header>
 
-    <!-- List of friendshup users -->
+    <!-- List of friendship users -->
     <section class="users-section">
         <h2>List of Friends</h2>
 
@@ -281,6 +288,19 @@ else
                 </tr>
                 <?php }} ?>
 
+                <?php while ($user = $pending_users->fetch_assoc()) {
+                    if ($user['username'] != $_SESSION['username']) {
+                ?>
+                <tr>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['fullname'] ?></td>
+                    <td>
+                        <p class="view-btn"> Pending
+                        </p>
+                    </td>
+                </tr>
+                <?php }} ?>
+
             </tbody>
 
         </table>
@@ -297,7 +317,7 @@ else
                 <tr>
                     <th>Username</th>
                     <th>Full Name</th>
-                    <th>Profile</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
@@ -332,7 +352,7 @@ else
                 <tr>
                     <th>Username</th>
                     <th>Full Name</th>
-                    <th>Profile</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
