@@ -15,15 +15,76 @@ if (!isset($_SESSION['username']))
 else
 {
     // Take the user full name in the database.
-    $result = db_query("SELECT fullname FROM account WHERE username = '" . $_SESSION['username'] . "'");
+    $result = db_query("SELECT fullname, id FROM account WHERE username = '" . $_SESSION['username'] . "'");
     if ($result->num_rows > 0)
     {
         $row = $result->fetch_assoc();
         $fullname = $row['fullname'];
-    }
+        $current_user_id = $row['id'];
 
-    // Take the list of users in the system.
-    $all_users = db_query("SELECT username, fullname FROM account");
+        // Take a list of strange users.
+        $strange_users = db_query(
+            "SELECT username, fullname, id
+            FROM account
+            WHERE id != " . $current_user_id . "
+            AND id NOT IN (    
+                SELECT account_id_1
+                FROM friendship
+                WHERE account_id_2 = " . $current_user_id . "
+                
+                UNION
+
+                SELECT account_id_2
+                FROM friendship
+                WHERE account_id_1 = " . $current_user_id . ")"
+            );
+
+        // Take the list of requesting users in the system, 
+        // who wants to make friend wit the current user.
+        $requesting_users = db_query(
+            "SELECT username, fullname, id
+            FROM account
+            WHERE id != " . $current_user_id . "
+            AND id IN (
+                SELECT account_id_1
+                FROM friendship
+                WHERE account_id_2 = " . $current_user_id . "
+                AND status = 'pending'
+            )");
+        }
+
+        // Take the list of pending request that the current user sent to other users.
+        $pending_users = db_query(
+            "SELECT username, fullname, id
+            FROM account
+            WHERE id != " . $current_user_id . "
+            AND id IN (
+                SELECT account_id_2
+                FROM friendship
+                WHERE account_id_1 = " . $current_user_id . "
+                AND status = 'pending'
+            )"
+        );
+
+        // Take the list of friends.
+        $friends = db_query(
+            "SELECT username, fullname, id
+            FROM account
+            WHERE id != " . $current_user_id . "
+            AND id IN (
+                SELECT account_id_2
+                FROM friendship
+                WHERE account_id_1 = " . $current_user_id . "
+                AND status = 'friend'
+
+                UNION
+
+                SELECT account_id_1
+                FROM friendship
+                WHERE account_id_2 = " . $current_user_id . "
+                AND status = 'friend'
+            )"
+        );
 }
 ?>
 
@@ -205,9 +266,9 @@ else
         <p><?= "username: " . $_SESSION['username'] ?></p>
     </header>
 
-    <!-- List of other users -->
+    <!-- List of friendship users -->
     <section class="users-section">
-        <h2>List of Users</h2>
+        <h2>Friends</h2>
 
         <table class="users-table">
 
@@ -215,12 +276,12 @@ else
                 <tr>
                     <th>Username</th>
                     <th>Full Name</th>
-                    <th>Profile</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
             <tbody>
-                <?php while ($user = $all_users->fetch_assoc()) {
+                <?php while ($user = $friends->fetch_assoc()) {
                     if ($user['username'] != $_SESSION['username']) {
                 ?>
                 <tr>
@@ -228,12 +289,109 @@ else
                     <td><?= $user['fullname'] ?></td>
                     <td>
                         <a href="profile.php?owner=<?= $user['username']?>" class="view-btn">
-                            View Profile
+                            View profile
+                        </a>
+                    
+                        <a href="friendship/unfriend.php?friendID=<?= $user['id']?>" class="view-btn">
+                            Unfriend
                         </a>
                     </td>
                 </tr>
                 <?php }} ?>
 
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- List of requesting users, who wants to make friend with the current user -->
+    <section class="users-section">
+        <h2>Requesting Users</h2>
+
+        <table class="users-table">
+
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php while ($user = $requesting_users->fetch_assoc()) {
+                    if ($user['username'] != $_SESSION['username']) {
+                ?>
+                <tr>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['fullname'] ?></td>
+                    <td>
+                        <a href="friendship/accept_friend.php?requesterID=<?= $user['id']?>" class="view-btn">
+                            Accept
+                        </a>
+                        <a href="friendship/reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
+                            Do not accept
+                        </a>
+                    </td>
+                </tr>
+                <?php }} ?>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- List of stranger and pending users -->
+    <section class="users-section">
+        <h2>Strange Users</h2>
+
+        <table class="users-table">
+
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Strangers -->
+                <?php while ($user = $strange_users->fetch_assoc()) {
+                    if ($user['username'] != $_SESSION['username']) {
+                ?>
+                <tr>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['fullname'] ?></td>
+                    <td>Stranger</td>
+                    <td>
+                        <a href="friendship/add_friend.php?targetID=<?= $user['id']?>" class="view-btn">
+                            Add friend
+                        </a>
+                    </td>
+                </tr>
+                <?php }} ?>
+
+                <!-- Pending request to other users -->
+                <?php while ($user = $pending_users->fetch_assoc()) {
+                    if ($user['username'] != $_SESSION['username']) {
+                ?>
+                <tr>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['fullname'] ?></td>
+                    <td>
+                        Pending
+                    </td>
+                    <td>
+                        <a href="friendship/undo_friend_request.php?targetID=<?= $user['id']?>" class="view-btn">
+                            Undo
+                        </a>
+                    </td>
+                </tr>
+                <?php }} ?>
             </tbody>
 
         </table>
