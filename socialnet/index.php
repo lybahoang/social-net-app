@@ -330,7 +330,7 @@ else
                         <a href="friendship/accept_friend.php?requesterID=<?= $user['id']?>" class="view-btn">
                             Accept
                         </a>
-                        <a href="friendship/reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
+                        <a href="friendship/reject_friend_request.php?targetID=<?= $user['id']?>" class="view-btn">
                             Do not accept
                         </a>
                     </td>
@@ -386,7 +386,7 @@ else
                         Pending
                     </td>
                     <td>
-                        <a href="friendship/reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
+                        <a href="friendship/reject_friend_request.php?targetID=<?= $user['id']?>" class="view-btn">
                             Undo
                         </a>
                     </td>
