@@ -24,7 +24,7 @@ else
 
         // Take a list of strange users.
         $strange_users = db_query(
-            "SELECT username, fullname
+            "SELECT username, fullname, id
             FROM account
             WHERE id != " . $current_user_id . "
             AND id NOT IN (
@@ -309,7 +309,7 @@ else
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
                     <td>
-                        <a href="accept_fiend.php?owner=<?= $user['username']?>" class="view-btn">
+                        <a href="accept_fiend.php?owner=<?= $user['id']?>" class="view-btn">
                             Accept
                         </a>
                     </td>
