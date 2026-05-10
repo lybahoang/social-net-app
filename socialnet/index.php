@@ -41,7 +41,7 @@ else
 
         // Take the list of requesting users in the system.
         $requesting_users = db_query(
-            "SELECT username, fullname
+            "SELECT username, fullname, id
             FROM account
             WHERE id != " . $current_user_id . "
             AND id IN (
