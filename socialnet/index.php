@@ -39,7 +39,8 @@ else
                 WHERE account_id_1 = " . $current_user_id . ")"
             );
 
-        // Take the list of requesting users in the system.
+        // Take the list of requesting users in the system, 
+        // who wants to make friend wit the current user.
         $requesting_users = db_query(
             "SELECT username, fullname, id
             FROM account
@@ -306,7 +307,7 @@ else
 
     </section>
 
-    <!-- List of requesting users -->
+    <!-- List of requesting users, who wants to make friend with the current user -->
     <section class="users-section">
         <h2>List of Requesting Users</h2>
 
@@ -316,7 +317,7 @@ else
                 <tr>
                     <th>Username</th>
                     <th>Full Name</th>
-                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
@@ -330,6 +331,9 @@ else
                     <td>
                         <a href="accept_friend.php?requesterID=<?= $user['id']?>" class="view-btn">
                             Accept
+                        </a>
+                        <a href="reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
+                            Do not accept
                         </a>
                     </td>
                 </tr>
@@ -352,6 +356,7 @@ else
                     <th>Username</th>
                     <th>Full Name</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
@@ -381,6 +386,11 @@ else
                     <td>
                         <p class="view-btn"> Pending
                         </p>
+                    </td>
+                    <td>
+                        <a href="reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
+                            Undo
+                        </a>
                     </td>
                 </tr>
                 <?php }} ?>
