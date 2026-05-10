@@ -20,26 +20,57 @@ else
     {
         $row = $result->fetch_assoc();
         $fullname = $row['fullname'];
-    }
-    // Take a list of strange users.
-    $strange_users = db_query(
+        $current_user_id = $row['id'];
+
+        // Take a list of strange users.
+        $strange_users = db_query(
+            "SELECT username, fullname
+            FROM account
+            WHERE id != " . $current_user_id . "
+            AND id NOT IN (
+                SELECT account_id_2
+                FROM friendship
+                WHERE account_id_1 = " . $current_user_id . "
+    
+                UNION
+    
+                SELECT account_id_1
+                FROM friendship
+                WHERE account_id_2 = " . $current_user_id . "
+            )");
+
+    // Take the list of requesting users in the system.
+    $requesting_users = db_query(
         "SELECT username, fullname
         FROM account
-        WHERE id != " . $row['id'] . "
-        AND id NOT IN (
+        WHERE id != " . $current_user_id . "
+        AND id IN (
+            SELECT account_id_1
+            FROM friendship
+            WHERE account_id_2 = " . $current_user_id . "
+            AND status = 'pending'
+        )");
+    }
+
+    // Take the list of friends.
+    $friends = db_query(
+        "SELECT username, fullname
+        FROM account
+        WHERE id != " . $current_user_id . "
+        AND id IN (
             SELECT account_id_2
             FROM friendship
-            WHERE account_id_1 = " . $row['id'] . "
+            WHERE account_id_1 = " . $current_user_id . "
+            AND status = 'friend'
 
             UNION
 
             SELECT account_id_1
             FROM friendship
-            WHERE account_id_2 = " . $row['id'] . "
-        )");
-
-    // Take the list of users in the system.
-    $all_users = db_query("SELECT username, fullname FROM account");
+            WHERE account_id_2 = " . $current_user_id . "
+            AND status = 'friend'
+        )"
+    );
 }
 ?>
 
@@ -221,9 +252,79 @@ else
         <p><?= "username: " . $_SESSION['username'] ?></p>
     </header>
 
-    <!-- List of other users -->
+    <!-- List of friendshup users -->
     <section class="users-section">
-        <h2>List of Users</h2>
+        <h2>List of Friends</h2>
+
+        <table class="users-table">
+
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Profile</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php while ($user = $friends->fetch_assoc()) {
+                    if ($user['username'] != $_SESSION['username']) {
+                ?>
+                <tr>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['fullname'] ?></td>
+                    <td>
+                        <a href="unfriend.php?owner=<?= $user['username']?>" class="view-btn">
+                            Unfriend
+                        </a>
+                    </td>
+                </tr>
+                <?php }} ?>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- List of requesting users -->
+    <section class="users-section">
+        <h2>List of Strange Users</h2>
+
+        <table class="users-table">
+
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Profile</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php while ($user = $requesting_users->fetch_assoc()) {
+                    if ($user['username'] != $_SESSION['username']) {
+                ?>
+                <tr>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['fullname'] ?></td>
+                    <td>
+                        <a href="accept_fiend.php?owner=<?= $user['username']?>" class="view-btn">
+                            Accept
+                        </a>
+                    </td>
+                </tr>
+                <?php }} ?>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- List of stranger users -->
+    <section class="users-section">
+        <h2>List of Strange Users</h2>
 
         <table class="users-table">
 
@@ -243,7 +344,7 @@ else
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
                     <td>
-                        <a href="profile.php?owner=<?= $user['username']?>" class="view-btn">
+                        <a href="add_friend.php?owner=<?= $user['username']?>" class="view-btn">
                             Add friend
                         </a>
                     </td>
