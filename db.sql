@@ -11,3 +11,17 @@ CREATE TABLE IF NOT EXISTS account (
 	description TEXT NULL
 );
 
+-- Create friendship table
+CREATE TABLE IF NOT EXISTS friendship (
+    account_id_1 INT NOT NULL,
+    account_id_2 INT NOT NULL,
+    status ENUM('pending', 'friend') NOT NULL,
+
+    PRIMARY KEY (account_id_1, account_id_2),
+
+    FOREIGN KEY (account_id_1) REFERENCES account(id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (account_id_2) REFERENCES account(id)
+        ON DELETE CASCADE
+);
