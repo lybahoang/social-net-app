@@ -322,7 +322,7 @@ else
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
                     <td>
-                        <a href="accept_friend.php?owner=<?= $user['id']?>" class="view-btn">
+                        <a href="accept_friend.php?requesterID=<?= $user['id']?>" class="view-btn">
                             Accept
                         </a>
                     </td>
