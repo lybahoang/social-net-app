@@ -70,4 +70,3 @@ New features in the SocialNet Project:
                     + It queries for the current user's id.
                     + It deletes the line in the "friendship" table where
                         account_id_1=current_user_id, account_id_2=targetID, status='pending'.
->>>>>>> friendship-feature
