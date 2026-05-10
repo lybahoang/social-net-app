@@ -68,10 +68,12 @@ if ($check->num_rows > 0)
         WHERE (
             account_id_1 = " . $current_user_id . "
             AND account_id_2 = " . $friend_id . "
+            AND status = 'friend'
         )
         OR (
             account_id_1 = " . $friend_id . "
             AND account_id_2 = " . $current_user_id . "
+            AND status = 'friend'
         )"
     );
 }
