@@ -22,7 +22,7 @@ if (!isset($_GET['friendID']))
 $result = db_query(
     "SELECT id
     FROM account
-    WHERE username = '" . $_SESSION['username'] . "'"
+    WHERE username = '" . addslashes($_SESSION['username']) . "'"
 );
 
 if ($result->num_rows == 0)
