@@ -35,7 +35,7 @@ $row = $result->fetch_assoc();
 $current_user_id = $row['id'];
 
 // Get requester id.
-$requester_id = intval($_GET['targetID']);
+$requester_id = $_GET['targetID'];
 
 // Delete pending request.
 db_execute(
