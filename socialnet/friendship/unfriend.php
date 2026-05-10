@@ -2,19 +2,19 @@
 
 session_start();
 
-require_once("../db.php");
+require_once("../../db.php");
 
 // Check if the user is logged in.
 if (!isset($_SESSION['username']))
 {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
 // Check if friend id who the current user wants to unfriend exists.
 if (!isset($_GET['friendID']))
 {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -27,7 +27,7 @@ $result = db_query(
 
 if ($result->num_rows == 0)
 {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -40,7 +40,7 @@ $friend_id = $_GET['friendID'];
 // Prevent self action.
 if ($current_user_id == $friend_id)
 {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -77,6 +77,6 @@ if ($check->num_rows > 0)
 }
 
 // Redirect back to homepage.
-header("Location: index.php");
+header("Location: ../index.php");
 exit();
 ?>

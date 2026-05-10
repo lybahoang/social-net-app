@@ -2,19 +2,19 @@
 
 session_start();
 
-require_once("../db.php");
+require_once("../../db.php");
 
 // Check if user is logged in.
 if (!isset($_SESSION['username']))
 {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
 // Check requester id exists.
 if (!isset($_GET['requesterID']))
 {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -27,7 +27,7 @@ $result = db_query(
 
 if ($result->num_rows == 0)
 {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -46,7 +46,7 @@ db_execute(
 );
 
 // Redirect back.
-header("Location: index.php");
+header("Location: ../index.php");
 exit();
 
 ?>

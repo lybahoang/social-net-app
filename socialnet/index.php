@@ -292,7 +292,7 @@ else
                             View profile
                         </a>
                     
-                        <a href="unfriend.php?friendID=<?= $user['id']?>" class="view-btn">
+                        <a href="friendship/unfriend.php?friendID=<?= $user['id']?>" class="view-btn">
                             Unfriend
                         </a>
                     </td>
@@ -327,10 +327,10 @@ else
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
                     <td>
-                        <a href="accept_friend.php?requesterID=<?= $user['id']?>" class="view-btn">
+                        <a href="friendship/accept_friend.php?requesterID=<?= $user['id']?>" class="view-btn">
                             Accept
                         </a>
-                        <a href="reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
+                        <a href="friendship/reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
                             Do not accept
                         </a>
                     </td>
@@ -368,7 +368,7 @@ else
                     <td><?= $user['fullname'] ?></td>
                     <td>Stranger</td>
                     <td>
-                        <a href="add_friend.php?targetID=<?= $user['id']?>" class="view-btn">
+                        <a href="friendship/add_friend.php?targetID=<?= $user['id']?>" class="view-btn">
                             Add friend
                         </a>
                     </td>
@@ -386,7 +386,7 @@ else
                         Pending
                     </td>
                     <td>
-                        <a href="reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
+                        <a href="friendship/reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
                             Undo
                         </a>
                     </td>
