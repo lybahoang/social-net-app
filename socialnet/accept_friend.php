@@ -36,7 +36,7 @@ $current_user_id = $row['id'];
 $requester_id = $_GET['requesterID'];
 
 // Prevent self action.
-if ($current_user_id == $requester_user_id)
+if ($current_user_id == $requester_id)
 {
     header("Location: index.php");
     exit();
@@ -46,7 +46,7 @@ if ($current_user_id == $requester_user_id)
 $check = db_query(
     "SELECT *
     FROM friendship
-    WHERE account_id_1 = " . $requester_user_id . "
+    WHERE account_id_1 = " . $requester_id . "
     AND account_id_2 = " . $current_user_id . "
     AND status = 'pending'"
 );
@@ -57,7 +57,7 @@ if ($check->num_rows > 0)
     db_execute(
         "UPDATE friendship
         SET status = 'friend'
-        WHERE account_id_1 = " . $requester_user_id . "
+        WHERE account_id_1 = " . $requester_id . "
         AND account_id_2 = " . $current_user_id
     );
 }
