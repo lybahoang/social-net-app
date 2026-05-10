@@ -55,7 +55,7 @@ else
 
         // Take the list of pending request that the current user sent to other users.
         $pending_users = db_query(
-            "SELECT username, fullname
+            "SELECT username, fullname, id
             FROM account
             WHERE id != " . $current_user_id . "
             AND id IN (
@@ -385,8 +385,7 @@ else
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
                     <td>
-                        <p class="view-btn"> Pending
-                        </p>
+                        Pending
                     </td>
                     <td>
                         <a href="reject_friend_request.php?requesterID=<?= $user['id']?>" class="view-btn">
