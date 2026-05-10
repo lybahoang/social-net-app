@@ -14,22 +14,19 @@ require_once("../db.php");
         
     // If the user does sign in, check for query string.
     $profile_username = "";
-    $safe_profile_username = "";
     if (isset($_GET['owner']))  // If there is a query string.
     {
         $profile_username = $_GET['owner'];
-        $safe_profile_username = addslashes($_GET['owner']);
     }
     else
     {
         $profile_username = $_SESSION['username'];
-        $safe_profile_username = addslashes($_SESSION['username']);
     }
 
     // Get the profile of the user.
     $fullname = "";
     $description = "";
-    $result = db_query("SELECT fullname, description FROM account WHERE username = '" . $safe_profile_username . "'");
+    $result = db_query("SELECT fullname, description FROM account WHERE username = '" . addslashes($profile_username) . "'");
     if ($result->num_rows > 0)
     {
         $row = $result->fetch_assoc();
