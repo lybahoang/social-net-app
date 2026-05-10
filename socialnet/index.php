@@ -31,7 +31,13 @@ else
                 SELECT account_id_1
                 FROM friendship
                 WHERE account_id_2 = " . $current_user_id . "
-            )");
+                
+                UNION
+
+                SELECT account_id_2
+                FROM friendship
+                WHERE account_id_1 = " . $current_user_id . ")"
+            );
 
         // Take the list of requesting users in the system.
         $requesting_users = db_query(
