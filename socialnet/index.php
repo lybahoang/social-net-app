@@ -15,8 +15,7 @@ if (!isset($_SESSION['username']))
 else
 {
     // Take the user full name in the database.
-    $username = addslashes($_SESSION['username']);
-    $result = db_query("SELECT fullname, id FROM account WHERE username = '" . $username . "'");
+    $result = db_query("SELECT fullname, id FROM account WHERE username = '" . addslashes($_SESSION['username']) . "'");
 
     if ($result->num_rows > 0)
     {
