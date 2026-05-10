@@ -12,7 +12,7 @@ if (!isset($_SESSION['username']))
 }
 
 // Check requester id exists.
-if (!isset($_GET['targetID']))
+if (!isset($_GET['requesterID']))
 {
     header("Location: ../index.php");
     exit();
@@ -35,7 +35,7 @@ $row = $result->fetch_assoc();
 $current_user_id = $row['id'];
 
 // Get requester id.
-$requester_id = $_GET['targetID'];
+$requester_id = $_GET['resquesterID'];
 
 // Delete pending request.
 db_execute(
