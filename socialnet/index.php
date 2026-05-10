@@ -386,7 +386,7 @@ else
                         Pending
                     </td>
                     <td>
-                        <a href="friendship/reject_friend_request.php?targetID=<?= $user['id']?>" class="view-btn">
+                        <a href="friendship/undo_friend_request.php?targetID=<?= $user['id']?>" class="view-btn">
                             Undo
                         </a>
                     </td>
