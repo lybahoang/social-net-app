@@ -276,7 +276,6 @@ else
                 <tr>
                     <th>Username</th>
                     <th>Full Name</th>
-                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -292,8 +291,7 @@ else
                         <a href="profile.php?owner=<?= $user['username']?>" class="view-btn">
                             View profile
                         </a>
-                    </td>
-                    <td>
+                    
                         <a href="unfriend.php?friendID=<?= $user['id']?>" class="view-btn">
                             Unfriend
                         </a>
