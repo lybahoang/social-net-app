@@ -268,7 +268,7 @@ else
 
     <!-- List of friendship users -->
     <section class="users-section">
-        <h2>List of Friends</h2>
+        <h2>Friends</h2>
 
         <table class="users-table">
 
@@ -309,7 +309,7 @@ else
 
     <!-- List of requesting users, who wants to make friend with the current user -->
     <section class="users-section">
-        <h2>List of Requesting Users</h2>
+        <h2>Requesting Users</h2>
 
         <table class="users-table">
 
@@ -347,7 +347,7 @@ else
 
     <!-- List of stranger and pending users -->
     <section class="users-section">
-        <h2>List of Strange Users</h2>
+        <h2>Strange Users</h2>
 
         <table class="users-table">
 
