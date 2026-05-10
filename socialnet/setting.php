@@ -17,6 +17,9 @@ require_once("../db.php");
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             $new_description = $_POST['description'];
+            // Escape quotes so SQL syntax does not break
+            $new_description = addslashes($new_description);
+            
             db_execute("UPDATE account SET description = '" . $new_description . "' WHERE username = '". $_SESSION['username'] . "'");
         }
 
