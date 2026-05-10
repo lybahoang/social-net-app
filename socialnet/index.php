@@ -344,7 +344,7 @@ else
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
                     <td>
-                        <a href="add_friend.php?targetID=<?= $user['username']?>" class="view-btn">
+                        <a href="add_friend.php?targetID=<?= $user['id']?>" class="view-btn">
                             Add friend
                         </a>
                     </td>
