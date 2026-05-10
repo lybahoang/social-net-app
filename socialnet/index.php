@@ -67,7 +67,7 @@ else
 
         // Take the list of friends.
         $friends = db_query(
-            "SELECT username, fullname
+            "SELECT username, fullname, id
             FROM account
             WHERE id != " . $current_user_id . "
             AND id IN (
@@ -275,7 +275,8 @@ else
                 <tr>
                     <th>Username</th>
                     <th>Full Name</th>
-                    <th>Profile</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
@@ -287,7 +288,12 @@ else
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['fullname'] ?></td>
                     <td>
-                        <a href="unfriend.php?owner=<?= $user['username']?>" class="view-btn">
+                        <a href="profile.php?owner=<?= $user['username']?>" class="view-btn">
+                            View profile
+                        </a>
+                    </td>
+                    <td>
+                        <a href="unfriend.php?friendID=<?= $user['id']?>" class="view-btn">
                             Unfriend
                         </a>
                     </td>
@@ -302,7 +308,7 @@ else
 
     <!-- List of requesting users -->
     <section class="users-section">
-        <h2>List of Strange Users</h2>
+        <h2>List of Requesting Users</h2>
 
         <table class="users-table">
 
@@ -310,7 +316,7 @@ else
                 <tr>
                     <th>Username</th>
                     <th>Full Name</th>
-                    <th>Action</th>
+                    <th>Status</th>
                 </tr>
             </thead>
 
@@ -345,7 +351,7 @@ else
                 <tr>
                     <th>Username</th>
                     <th>Full Name</th>
-                    <th>Action</th>
+                    <th>Status</th>
                 </tr>
             </thead>
 
