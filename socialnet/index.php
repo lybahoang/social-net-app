@@ -288,19 +288,6 @@ else
                 </tr>
                 <?php }} ?>
 
-                <?php while ($user = $pending_users->fetch_assoc()) {
-                    if ($user['username'] != $_SESSION['username']) {
-                ?>
-                <tr>
-                    <td><?= $user['username'] ?></td>
-                    <td><?= $user['fullname'] ?></td>
-                    <td>
-                        <p class="view-btn"> Pending
-                        </p>
-                    </td>
-                </tr>
-                <?php }} ?>
-
             </tbody>
 
         </table>
@@ -342,7 +329,7 @@ else
 
     </section>
 
-    <!-- List of stranger users -->
+    <!-- List of stranger and pending users -->
     <section class="users-section">
         <h2>List of Strange Users</h2>
 
@@ -357,6 +344,7 @@ else
             </thead>
 
             <tbody>
+                <!-- Strangers -->
                 <?php while ($user = $strange_users->fetch_assoc()) {
                     if ($user['username'] != $_SESSION['username']) {
                 ?>
@@ -371,6 +359,19 @@ else
                 </tr>
                 <?php }} ?>
 
+                <!-- Pending request to other users -->
+                <?php while ($user = $pending_users->fetch_assoc()) {
+                    if ($user['username'] != $_SESSION['username']) {
+                ?>
+                <tr>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['fullname'] ?></td>
+                    <td>
+                        <p class="view-btn"> Pending
+                        </p>
+                    </td>
+                </tr>
+                <?php }} ?>
             </tbody>
 
         </table>
