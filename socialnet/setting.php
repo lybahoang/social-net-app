@@ -16,15 +16,16 @@ require_once("../db.php");
         // Update the description column in the database.
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
+            $username = addslashes($_SESSION['username']);
             $new_description = $_POST['description'];
             // Escape quotes so SQL syntax does not break
             $new_description = addslashes($new_description);
-            
-            db_execute("UPDATE account SET description = '" . $new_description . "' WHERE username = '". $_SESSION['username'] . "'");
+
+            db_execute("UPDATE account SET description = '" . $new_description . "' WHERE username = '". $username . "'");
         }
 
         // Take the current desciption to display.
-        $result = db_query("SELECT description FROM account WHERE username = '" . $_SESSION['username'] . "'");
+        $result = db_query("SELECT description FROM account WHERE username = '" . $username . "'");
         if ($result->num_rows > 0)
         {
             $row = $result->fetch_assoc();
